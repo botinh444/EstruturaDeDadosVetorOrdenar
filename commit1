@@ -1,0 +1,73 @@
+#include <iostream>
+#include <algorithm> 
+#include <ctime>    
+
+using namespace std;
+
+int vetor[50];
+
+
+void bubbleSort(int n) {
+    bool trocou;
+    for (int i = 0; i < n - 1; i++) {
+        trocou = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (vetor[j] > vetor[j + 1]) {
+                swap(vetor[j], vetor[j + 1]);
+                trocou = true;
+            }
+        }
+        if (!trocou) break; 
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    
+
+    srand(static_cast<unsigned int>(time(NULL)));
+
+
+    for (int i = 0; i < 50; i++) {
+        vetor[i] = rand() % 100;
+    }
+
+
+    cout << "Vetor original (desordenado):\n";
+    for (int i = 0; i < 50; i++) {
+        cout << vetor[i] << " ";
+    }
+    cout << "\n\n";
+
+
+    bubbleSort(50);
+
+
+    cout << "Vetor ordenado:\n";
+    for (int i = 0; i < 50; i++) {
+        cout << vetor[i] << " ";
+    }
+    cout << "\n\n";
+
+
+    cout.flush();
+
+
+    int numProcurar;
+    cout << "Digite um numero para procurar: ";
+    cin >> numProcurar;
+    cout << "\n";
+
+    auto ini = lower_bound(vetor, vetor + 50, numProcurar);
+    auto fim = upper_bound(vetor, vetor + 50, numProcurar);
+
+    if (ini == fim) {
+        cout << "Numero nao encontrado.\n";
+    } else {
+        cout << "Primeira ocorrencia no indice: " << (ini - vetor) << "\n";
+        cout << "Ultima ocorrencia no indice: " << (fim - vetor - 1) << "\n";
+        cout << "Quantidade de ocorrencias: " << (fim - ini) << "\n";
+    }
+
+    return 0;
+}
